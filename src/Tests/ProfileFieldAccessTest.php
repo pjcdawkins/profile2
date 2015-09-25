@@ -7,6 +7,7 @@
 
 namespace Drupal\profile\Tests;
 
+use Drupal\profile\Entity\ProfileType;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -16,17 +17,25 @@ use Drupal\simpletest\WebTestBase;
  */
 class ProfileFieldAccessTest extends WebTestBase {
 
+  /** {@inheritdoc} */
   public static $modules = ['profile', 'text', 'field_ui'];
 
+  /** @var ProfileType */
   private $type;
+
+  /** @var \Drupal\user\Entity\User */
   private $admin_user;
+
+  /** @var \Drupal\user\Entity\User */
   private $web_user;
+
+  /** @var \Drupal\user\Entity\User */
   private $other_user;
 
   function setUp() {
     parent::setUp();
 
-    $this->type = entity_create('profile_type', [
+    $this->type = ProfileType::create([
       'id' => 'personal',
       'label' => 'Personal data',
       'weight' => 0,
